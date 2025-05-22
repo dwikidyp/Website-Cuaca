@@ -243,15 +243,66 @@ body {
   max-width: max-content;
   display: flex;
   align-items: center;
+  gap: 16px;
+  padding-inline: 16px;
+  border-radius: var(--radius-pill);
 }
+
+.btn-primary .span { font-weight: var(--weight-semiBold);}
+
+.btn-primary[disabled] {
+  background-color: var(--outline);
+  color: var(--on-surface-variant);
+  cursor: not-allowed;
+}
+
+.btn-primary[disabled]::before { display: none;}
 
 /*-----------------------------------*\
   #HEADER
 \*-----------------------------------*/
 
+.header .btn-primary .span { display: none;}
 
+.logo img {width: 150px;}
 
+.header .container, 
+.header-actions {
+  display: flex;
+  align-items: center;
+}
 
+.header .container { justify-content: space-between;}
+
+.header-actions { gap: 16px;}
+
+.header .btn-primary{ padding-inline: 12px;}
+
+.search-view {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  height: 100svh; /* untuk mobile browser*/
+  background-color: var(--surface);
+  color: var(--on-surface);
+  clip-path: circle(4% at calc(100% - 102px) 5%);
+  opacity: 0;
+  visibility: hidden;
+  z-index: 4;
+  transition: clip-path 500ms ease;
+}
+
+.search-view.active {
+  opacity: 1;
+  visibility: visible;
+  clip-path: circle(130% at 73% 5%);
+}
+
+.search-wrapper {
+  position: relative;
+}
 
 /*-----------------------------------*\
   #CURRENT WEATHER
