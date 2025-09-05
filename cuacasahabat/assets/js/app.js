@@ -57,7 +57,7 @@ searchField.addEventListener("input", function () {
                 searchResult.innerHTML = `
                     <ul class="view-list" data-search-list></ul>
                 `;
-                const /** {NodeList} | [] */ items = []
+                const /** {NodeList} | [] */ items = [];
 
                 for (const { name, lat, lon, country, state} of locations) {
                     const searchItem = document.createElement("li");
@@ -70,10 +70,21 @@ searchField.addEventListener("input", function () {
                             <p class="label-2 item-subtitle">${state || ""} ${country}</p>
                         </div>
 
-                        <a href="#/weather?lat=${lat}" class="item-link has-state"data-search-toggler></a>
+                        <a href="#/weather?lat=${lat}&lon=${lon}" class="item-link has-state" aria-label="${name} weather" data-search-toggler></a>
                     `;
+
+                    searchResult.querySelector("[data-search-list]").appendChild(searchItem);
+                    items.push(searchItem.querySelector("[data-search-toggler]"));
                 }
             });
         }, searchTimeoutDuration);
     }
 });
+
+const container = document.querySelector("[data-container]");
+const loading = document.querySelector("[data-loading]");
+const currentLocationBtn = document.querySelector("[data-current-location-btn]");
+
+export const updateWeather = function (lat, lon) {
+    
+}
