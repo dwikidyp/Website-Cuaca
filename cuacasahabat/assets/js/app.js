@@ -76,6 +76,8 @@ searchField.addEventListener("input", function () {
                     searchResult.querySelector("[data-search-list]").appendChild(searchItem);
                     items.push(searchItem.querySelector("[data-search-toggler]"));
                 }
+
+                addEventOnElements()
             });
         }, searchTimeoutDuration);
     }
@@ -140,13 +142,21 @@ export const updateWeather = function (lat, lon) {
             <ul class="meta-list">
                 <li class="meta-item">
                     <span class="m-icon">calendar_today</span>
-                    <p class="title-3 meta-text">${module.getDate}</p>
+                    <p class="title-3 meta-text">${module.getDate(dateUnix, timezone)}</p>
                 </li>
                 <li class="meta-item">
                     <span class="m-icon">location_on</span>
-                    <p class="title-3 meta-text">London, GB</p>
+                    <p class="title-3 meta-text" data-location></p>
                 </li>
             </ul>
         `;
+
+        fetchData(url.reverseGeo(lat, lon), function([{ name, country}]) {
+            card.querySelector("[data-location]").innerHTML = `${name}, ${country}`
+        });
+
+        currentWeatherSection.appendChild(card);
     });
 }
+
+export const error404 = function () {}
