@@ -77,7 +77,10 @@ searchField.addEventListener("input", function () {
                     items.push(searchItem.querySelector("[data-search-toggler]"));
                 }
 
-                addEventOnElements()
+                addEventOnElements(items, "click", function () {
+                    toggleSearch();
+                    searchResult.classList.remove("active");
+                })
             });
         }, searchTimeoutDuration);
     }
@@ -96,7 +99,7 @@ const errorContent = document.querySelector("[data-error-content]");
 export const updateWeather = function (lat, lon) {
     loading.style.display = "grid";
     container.style.overflowY = "hidden";
-    container.classList.contains("fade-in") ?? container.classList.remove("fade-in");
+    container.classList.remove("fade-in");
     errorContent.style.display = "none";
 
     const currentWeatherSection = document.querySelector("[data-current-selector]");
@@ -156,6 +159,15 @@ export const updateWeather = function (lat, lon) {
         });
 
         currentWeatherSection.appendChild(card);
+
+        /**
+         * Today's Highlights
+         */
+        fetchData(url.airPollution(lat, lon), function (airPollution) {
+            const [{
+                
+            }] = airPollution.list;
+        });
     });
 }
 
