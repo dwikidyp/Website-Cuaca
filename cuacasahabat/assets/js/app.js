@@ -165,8 +165,89 @@ export const updateWeather = function (lat, lon) {
          */
         fetchData(url.airPollution(lat, lon), function (airPollution) {
             const [{
-                
+                main: {aqi},
+                components: {no2, o3, so2, pm2_5}
             }] = airPollution.list;
+            const card = document.createElement("div");
+            card.classList.add("card", "card-lg");
+
+            card.innerHTML = `
+                <h2 class="title-2" id="highlights-label">Todays Highlights</h2>
+                <div class="highlight-list">
+                    <div class="card card-sm highlight-card one">
+                        <h3 class="title-3">Air Quality Index</h3>
+                        <div class="wrapper">
+                            <span class="m-icon">air</span>
+                            <ul class="card-list">
+                                <li class="card-item">
+                                    <p class="title-1">${Number(pm2_5).toPrecision(3)}</p>
+                                    <p class="label-1">PM<sub>2.5</sub></p>
+                                </li>
+                                <li class="card-item">
+                                    <p class="title-1">${Number(so2).toPrecision(3)}</p>
+                                    <p class="label-1">SO<sub>2</sub></p>
+                                </li>
+                                <li class="card-item">
+                                    <p class="title-1">${Number(no2).toPrecision(3)}</p>
+                                    <p class="label-1">NO<sub>2</sub></p>
+                                </li>
+                                <li class="card-item">
+                                    <p class="title-1">${Number(o3).toPrecision(3)}</p>
+                                    <p class="label-1">O<sub>3</sub></p>
+                                </li>
+                            </ul>
+                        </div>
+                        <span class="badge aqi-${aqi} label-${aqi}" title="${module.aqiText[aqi].message}">${module.aqiText[aqi].level}</span>
+                    </div>
+                    <div class="card card-sm highlight-card two">
+                        <h3 class="title-3">Sunrise & Sunset</h3>
+                        <div class="card-list">
+                            <div class="card-item">
+                                <span class="m-icon">clear_day</span>
+                                <div>
+                                    <p class="label-1">Sunrise</p>
+                                    <p class="title-1">6:30 AM</p>
+                                </div>
+                            </div>
+                            <div class="card-item">
+                                <span class="m-icon">clear_night</span>
+                                <div>
+                                    <p class="label-1">Sunset</p>
+                                    <p class="title-1">5:54 PM</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card card-sm highlight-card">
+                        <h3 class="title-3">Humidity</h3>
+                        <div class="wrapper">
+                            <span class="m-icon">humidity_percentage</span>
+                            <p class="title-1">35<sub>%</sub></p>
+                        </div>
+                    </div>
+                    <div class="card card-sm highlight-card">
+                        <h3 class="title-3">Pressure</h3>
+                        <div class="wrapper">
+                            <span class="m-icon">airwave</span>
+                            <p class="title-1">1052<sub>hPa</sub></p>
+                        </div>
+                    </div>
+                    <div class="card card-sm highlight-card">
+                        <h3 class="title-3">Visibility</h3>
+                        <div class="wrapper">
+                            <span class="m-icon">visibility</span>
+                            <p class="title-1">10<sub>km</sub></p>
+                        </div>
+                    </div>
+                    <div class="card card-sm highlight-card">
+                        <h3 class="title-3">Feels Like</h3>
+                        <div class="wrapper">
+                            <span class="m-icon">thermostat</span>
+                            <p class="title-1">25&deg;<sup>c</sup></p>
+                        </div>
+                    </div>
+                </div>
+            `;
         });
     });
 }
