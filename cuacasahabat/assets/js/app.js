@@ -307,6 +307,37 @@ export const updateWeather = function (lat, lon) {
             /**
              * 5 Day Forecast Section
              */
+            forecastSection.innerHTML = `
+                <h2 class="title-2" id="forecast-label">5 Days Forecast</h2>
+                <div class="card card-lg forecast-card">
+                    <ul data-forecast-list></ul>
+                </div>
+            `;
+
+            for (let i = 7, len = forecastList.length; i < len; i+=8) {
+                const {
+                    main: { temp_max },
+                    weather,
+                    dt_txt
+                } = forecastList[i];
+                const [{ icon , description }] = weather
+                const date = new Date(dt_txt);
+
+                const li = document.createElement("li");
+                li.classList.add("card-item");
+
+                li.innerHTML = `
+                    <div class="icon-wrapper">
+                        <img src="./assets/images/weather_icons/${icon}.png" width="36" height="36" alt="${description}" class="weather-icon" title="${description}">
+                        <span class="span">
+                            <p class="title-2">${parseInt(temp_max)}$deg;</p>
+                        </span>
+                    </div>
+                    <p class="label-1">${date.getDate()} ${module.monthNames[date.getUTCMonth()]}</p>
+                    <p class="label-1">${module.weekDayNames[date.getUTCDay()]}</p>
+                `;
+                forecastSection.querySelector("[data-forecast-list]").appendChild()
+            }
         });
     });
 }
