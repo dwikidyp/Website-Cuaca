@@ -97,9 +97,9 @@ const errorContent = document.querySelector("[data-error-content]");
  * @param {number} lon longitude
  */
 export const updateWeather = function (lat, lon) {
-    // loading.style.display = "grid";
-    // container.style.overflowY = "hidden";
-    // container.classList.remove("fade-in");
+    loading.style.display = "grid";
+    container.style.overflowY = "hidden";
+    container.classList.remove("fade-in");
     errorContent.style.display = "none";
 
     const currentWeatherSection = document.querySelector("[data-current-selector]");
@@ -330,16 +330,20 @@ export const updateWeather = function (lat, lon) {
                     <div class="icon-wrapper">
                         <img src="./assets/images/weather_icons/${icon}.png" width="36" height="36" alt="${description}" class="weather-icon" title="${description}">
                         <span class="span">
-                            <p class="title-2">${parseInt(temp_max)}$deg;</p>
+                            <p class="title-2">${parseInt(temp_max)}&deg;</p>
                         </span>
                     </div>
                     <p class="label-1">${date.getDate()} ${module.monthNames[date.getUTCMonth()]}</p>
                     <p class="label-1">${module.weekDayNames[date.getUTCDay()]}</p>
                 `;
-                forecastSection.querySelector("[data-forecast-list]").appendChild()
+                forecastSection.querySelector("[data-forecast-list]").appendChild(li);
             }
+
+            loading.style.display = "none";
+            container.style.overflowY = "overlay";
+            container.classList.add("fade-in");
         });
     });
 }
 
-export const error404 = function () {}
+export const error404 = () => errorContent.style.display = "flex";
